@@ -59417,6 +59417,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function (obj) { return typeof obj; }; } else { _typeof = function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 function toVal(mix) {
   var k,
       y,
@@ -59424,7 +59426,7 @@ function toVal(mix) {
 
   if (typeof mix === 'string' || typeof mix === 'number') {
     str += mix;
-  } else if (typeof mix === 'object') {
+  } else if (_typeof(mix) === 'object') {
     if (Array.isArray(mix)) {
       for (k = 0; k < mix.length; k++) {
         if (mix[k]) {
@@ -103484,16 +103486,16 @@ var _ChevronRight = _interopRequireDefault(require("@material-ui/icons/ChevronRi
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const Header = props => {
-  const getTime = date => {
-    const formattedDate = (0, _dateFns.format)(date, "MMMM '-' yyyy", {
+var Header = function Header(props) {
+  var getTime = function getTime(date) {
+    var formattedDate = (0, _dateFns.format)(date, "MMMM '-' yyyy", {
       locale: _ptBR.default
     });
     return formattedDate;
   };
 
-  const changeMonth = direction => {
-    let item;
+  var changeMonth = function changeMonth(direction) {
+    var item;
 
     if (direction === 'left') {
       item = new Date(props.month);
@@ -103514,7 +103516,9 @@ const Header = props => {
       alignItems: 'center'
     }
   }, /*#__PURE__*/_react.default.createElement(_core.IconButton, {
-    onClick: () => changeMonth('left'),
+    onClick: function onClick() {
+      return changeMonth('left');
+    },
     "aria-label": "delete",
     size: "small"
   }, /*#__PURE__*/_react.default.createElement(_ChevronLeft.default, null)), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", {
@@ -103522,7 +103526,9 @@ const Header = props => {
       textTransform: 'capitalize'
     }
   }, getTime(new Date(props.month)))), /*#__PURE__*/_react.default.createElement(_core.IconButton, {
-    onClick: () => changeMonth('right'),
+    onClick: function onClick() {
+      return changeMonth('right');
+    },
     "aria-label": "delete",
     size: "small"
   }, /*#__PURE__*/_react.default.createElement(_ChevronRight.default, null)));
@@ -103530,7 +103536,7 @@ const Header = props => {
 
 var _default = Header;
 exports.default = _default;
-const styles = {
+var styles = {
   icon: {
     marginLeft: 10,
     marginRight: 10,
@@ -103564,28 +103570,48 @@ function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "functio
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-const Day = ({
-  item,
-  index,
-  indexWeek,
-  rmDays,
-  clickEvent,
-  clickDay,
-  onEventMore,
-  month,
-  small,
-  selectDay
-}) => {
-  const [colors, setColors] = (0, _react.useState)({
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var Day = function Day(_ref) {
+  var item = _ref.item,
+      index = _ref.index,
+      indexWeek = _ref.indexWeek,
+      rmDays = _ref.rmDays,
+      clickEvent = _ref.clickEvent,
+      clickDay = _ref.clickDay,
+      onEventMore = _ref.onEventMore,
+      month = _ref.month,
+      small = _ref.small,
+      selectDay = _ref.selectDay;
+
+  var _useState = (0, _react.useState)({
     border: "#fff",
     background: "#fff"
-  });
-  const [offers, setOffers] = (0, _react.useState)([]);
-  (0, _react.useEffect)(() => {
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      colors = _useState2[0],
+      setColors = _useState2[1];
+
+  var _useState3 = (0, _react.useState)([]),
+      _useState4 = _slicedToArray(_useState3, 2),
+      offers = _useState4[0],
+      setOffers = _useState4[1];
+
+  (0, _react.useEffect)(function () {
     if (!!item.item) {
-      let status;
+      var status;
       setOffers(item.item.offers);
-      item.item.offers.map(item => {
+      item.item.offers.map(function (item) {
         if (!!item.jobstarted && !item.jobdone) {
           status = {
             border: '#72DEC9',
@@ -103607,7 +103633,7 @@ const Day = ({
     }
   }, []);
 
-  const getStatus = offer => {
+  var getStatus = function getStatus(offer) {
     if (!!offer.jobstarted && !offer.jobdone) {
       return 'Iniciado';
     } else if (!!offer.jobstarted && !!offer.jobdone) {
@@ -103617,7 +103643,7 @@ const Day = ({
     }
   };
 
-  const dotColor = status => {
+  var dotColor = function dotColor(status) {
     if (!!status.jobstarted && !status.jobdone) {
       return '#72DEC9';
     } else if (!!status.jobstarted && !!status.jobdone) {
@@ -103627,12 +103653,12 @@ const Day = ({
     }
   };
 
-  const listRender = () => {
-    let len = 0;
-    return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, offers.map(item => {
+  var listRender = function listRender() {
+    var len = 0;
+    return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, offers.map(function (item) {
       len = len + item.role.name.length;
       if (len < 51) return /*#__PURE__*/_react.default.createElement("div", {
-        onClick: () => {
+        onClick: function onClick() {
           if (offers.length === 1) clickEvent(item.pk);
         },
         style: {
@@ -103662,17 +103688,21 @@ const Day = ({
   };
 
   return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, small ? /*#__PURE__*/_react.default.createElement("div", {
-    onClick: () => {
+    onClick: function onClick() {
       if (!item.noView) {
         if (!!item.item) {
-          let item = new Date(month);
-          item.setDate(7 * indexWeek + index + 1 - rmDays);
-          onEventMore(item, !!item.item);
-        } else {
-          let item = new Date(month);
-          item.setDate(7 * indexWeek + index + 1 - rmDays); // onEventMore(item, !!item.item)
+          var _item = new Date(month);
 
-          clickDay(item);
+          _item.setDate(7 * indexWeek + index + 1 - rmDays);
+
+          onEventMore(_item, !!_item.item);
+        } else {
+          var _item2 = new Date(month);
+
+          _item2.setDate(7 * indexWeek + index + 1 - rmDays); // onEventMore(item, !!item.item)
+
+
+          clickDay(_item2);
         }
       }
     },
@@ -103722,16 +103752,20 @@ const Day = ({
       backgroundColor: colors.background.includes("#fff") ? colors.background : '#4A0D77'
     }
   }))) : /*#__PURE__*/_react.default.createElement("div", {
-    onClick: () => {
+    onClick: function onClick() {
       if (!item.noView) {
         if (!!item.item) {
-          let item = new Date(month);
-          item.setDate(7 * indexWeek + index + 1 - rmDays);
-          onEventMore(item);
+          var _item3 = new Date(month);
+
+          _item3.setDate(7 * indexWeek + index + 1 - rmDays);
+
+          onEventMore(_item3);
         } else {
-          let item = new Date(month);
-          item.setDate(7 * indexWeek + index + 1 - rmDays);
-          clickDay(item);
+          var _item4 = new Date(month);
+
+          _item4.setDate(7 * indexWeek + index + 1 - rmDays);
+
+          clickDay(_item4);
         }
       }
     },
@@ -103741,7 +103775,7 @@ const Day = ({
       margin: '8px 4px',
       boxShadow: '0px 2px 6px rgba(0, 0, 0, 0.1)',
       borderRadius: '5px 3px 5px 5px',
-      borderLeft: `3px solid ${colors.border}`,
+      borderLeft: "3px solid ".concat(colors.border),
       backgroundColor: colors.background,
       cursor: 'pointer',
       overflow: 'hidden',
@@ -103821,37 +103855,56 @@ function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "functio
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-const Week = ({
-  index,
-  data,
-  month,
-  rmDays,
-  weekCount,
-  small,
-  selectDay,
-  onEventMore,
-  clickDay,
-  clickEvent
-}) => {
-  const [weekindex, setWeekIndex] = (0, _react.useState)(index);
-  const [events, setEvents] = (0, _react.useState)([]);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var Week = function Week(_ref) {
+  var index = _ref.index,
+      data = _ref.data,
+      month = _ref.month,
+      rmDays = _ref.rmDays,
+      weekCount = _ref.weekCount,
+      small = _ref.small,
+      selectDay = _ref.selectDay,
+      _onEventMore = _ref.onEventMore,
+      _clickDay = _ref.clickDay,
+      _clickEvent = _ref.clickEvent;
+
+  var _useState = (0, _react.useState)(index),
+      _useState2 = _slicedToArray(_useState, 2),
+      weekindex = _useState2[0],
+      setWeekIndex = _useState2[1];
+
+  var _useState3 = (0, _react.useState)([]),
+      _useState4 = _slicedToArray(_useState3, 2),
+      events = _useState4[0],
+      setEvents = _useState4[1];
 
   function diasNoMes(mes, ano) {
     var data = new Date(ano, mes, 0);
     return data.getDate();
   }
 
-  (0, _react.useEffect)(() => {
+  (0, _react.useEffect)(function () {
     if (!!data.events) {
-      let array = [];
-      [1, 2, 3, 4, 5, 6, 7].map(item => {
+      var array = [];
+      [1, 2, 3, 4, 5, 6, 7].map(function (item) {
         array.push({});
       });
-      let date = new Date(month);
+      var date = new Date(month);
       date.setDate(1);
 
       if (weekindex === 0) {
-        [1, 2, 3, 4, 5, 6, 7].map((item, index) => {
+        [1, 2, 3, 4, 5, 6, 7].map(function (item, index) {
           if (date.getDay() > index) {
             array[index] = {
               noView: true
@@ -103863,16 +103916,16 @@ const Week = ({
       date.setDate(diasNoMes(date.getMonth() + 1, date.getFullYear()));
 
       if (weekindex === weekCount - 1) {
-        [1, 2, 3, 4, 5, 6, 7].map((item, index) => {
+        [1, 2, 3, 4, 5, 6, 7].map(function (item, index) {
           if (date.getDay() < index) array[index] = {
             noView: true
           };
         });
       }
 
-      data.events.map((item, index) => {
+      data.events.map(function (item, index) {
         array[new Date(item.startDate).getDay()] = {
-          item
+          item: item
         };
       });
       setEvents(array);
@@ -103885,15 +103938,21 @@ const Week = ({
       paddingLeft: '16px',
       paddingRight: '16px'
     }
-  }, events.map((item, index) => {
+  }, events.map(function (item, index) {
     return /*#__PURE__*/_react.default.createElement(_day.default, {
       item: item,
       small: small,
       month: month,
       selectDay: selectDay,
-      onEventMore: (a, b) => onEventMore(a, b),
-      clickDay: a => clickDay(a),
-      clickEvent: a => clickEvent(a),
+      onEventMore: function onEventMore(a, b) {
+        return _onEventMore(a, b);
+      },
+      clickDay: function clickDay(a) {
+        return _clickDay(a);
+      },
+      clickEvent: function clickEvent(a) {
+        return _clickEvent(a);
+      },
       rmDays: rmDays,
       indexWeek: weekindex,
       index: index
@@ -103915,12 +103974,11 @@ var _react = _interopRequireDefault(require("react"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const names = ['Domingo', 'Segunda-Feira', 'Terça-Feira', 'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feira', 'Sábado'];
-const namesSmall = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
+var names = ['Domingo', 'Segunda-Feira', 'Terça-Feira', 'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feira', 'Sábado'];
+var namesSmall = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
 
-const WeekNames = ({
-  small
-}) => {
+var WeekNames = function WeekNames(_ref) {
+  var small = _ref.small;
   return /*#__PURE__*/_react.default.createElement("div", {
     style: {
       display: 'flex',
@@ -103933,7 +103991,7 @@ const WeekNames = ({
       paddingTop: 8,
       paddingBottom: 8
     }
-  }, !small ? /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, names.map(item => {
+  }, !small ? /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, names.map(function (item) {
     return /*#__PURE__*/_react.default.createElement("div", {
       style: {
         display: 'flex',
@@ -103947,7 +104005,7 @@ const WeekNames = ({
         fontWeight: '400'
       }
     }, item));
-  })) : /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, namesSmall.map(item => {
+  })) : /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, namesSmall.map(function (item) {
     return /*#__PURE__*/_react.default.createElement("div", {
       style: {
         display: 'flex',
@@ -104208,27 +104266,76 @@ function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "functio
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-const BigCalendar = ({
-  eventsData,
-  small,
-  onChangeMonth,
-  selectDate,
-  clickDay,
-  onEventMore,
-  onClickEvent
-}) => {
-  const [events, setEvents] = (0, _react.useState)({
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var BigCalendar = function BigCalendar(_ref) {
+  var eventsData = _ref.eventsData,
+      small = _ref.small,
+      onChangeMonth = _ref.onChangeMonth,
+      selectDate = _ref.selectDate,
+      _clickDay = _ref.clickDay,
+      _onEventMore = _ref.onEventMore,
+      onClickEvent = _ref.onClickEvent;
+
+  var _useState = (0, _react.useState)({
     '1': {},
     '2': {},
     '3': {},
     '4': {},
     '5': {}
-  });
-  const [month, setMonth] = (0, _react.useState)(new Date());
-  const [loading, setLoading] = (0, _react.useState)(false);
-  const [selectDateChange, setSelectDateChange] = (0, _react.useState)(selectDate);
-  const [rmDays, setRmDays] = (0, _react.useState)(0);
-  const [weekCount, setWeekCount] = (0, _react.useState)([]);
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      events = _useState2[0],
+      setEvents = _useState2[1];
+
+  var _useState3 = (0, _react.useState)(new Date()),
+      _useState4 = _slicedToArray(_useState3, 2),
+      month = _useState4[0],
+      setMonth = _useState4[1];
+
+  var _useState5 = (0, _react.useState)(false),
+      _useState6 = _slicedToArray(_useState5, 2),
+      loading = _useState6[0],
+      setLoading = _useState6[1];
+
+  var _useState7 = (0, _react.useState)(selectDate),
+      _useState8 = _slicedToArray(_useState7, 2),
+      selectDateChange = _useState8[0],
+      setSelectDateChange = _useState8[1];
+
+  var _useState9 = (0, _react.useState)(0),
+      _useState10 = _slicedToArray(_useState9, 2),
+      rmDays = _useState10[0],
+      setRmDays = _useState10[1];
+
+  var _useState11 = (0, _react.useState)([]),
+      _useState12 = _slicedToArray(_useState11, 2),
+      weekCount = _useState12[0],
+      setWeekCount = _useState12[1];
 
   function weekOfMonth(dt) {
     // recebe um Date e retorna a semana do mês, baseado no valor numérico do dia
@@ -104254,13 +104361,13 @@ const BigCalendar = ({
     return data.getDate();
   }
 
-  (0, _react.useEffect)(() => {
+  (0, _react.useEffect)(function () {
     getEvents();
   }, []);
 
-  const getEvents = () => {
+  var getEvents = function getEvents() {
     setLoading(true);
-    let temp = {
+    var temp = {
       '1': {
         events: []
       },
@@ -104280,10 +104387,10 @@ const BigCalendar = ({
         events: []
       }
     };
-    let date = new Date(month);
-    let rm = 0;
+    var date = new Date(month);
+    var rm = 0;
     date.setDate(1);
-    [1, 2, 3, 4, 5, 6, 7].map((item, index) => {
+    [1, 2, 3, 4, 5, 6, 7].map(function (item, index) {
       if (date.getDay() > index) {
         rm = rm + 1;
       }
@@ -104291,30 +104398,28 @@ const BigCalendar = ({
     setRmDays(rm);
     date.setDate(diasNoMes(date.getMonth() + 1, date.getFullYear()));
     getCountWeek(date.getWeekOfMonth(true));
-    eventsData.map(item => {
-      temp = { ...temp,
-        [new Date(item.startDate).getWeekOfMonth(true)]: {
-          events: [...temp[new Date(item.startDate).getWeekOfMonth(true)].events, item]
-        }
-      };
+    eventsData.map(function (item) {
+      temp = _objectSpread(_objectSpread({}, temp), {}, _defineProperty({}, new Date(item.startDate).getWeekOfMonth(true), {
+        events: [].concat(_toConsumableArray(temp[new Date(item.startDate).getWeekOfMonth(true)].events), [item])
+      }));
     });
     setEvents(temp);
   };
 
-  const getCountWeek = count => {
-    let array = [];
+  var getCountWeek = function getCountWeek(count) {
+    var array = [];
 
-    for (let index = 0; index < count; index++) {
+    for (var index = 0; index < count; index++) {
       array.push(index + 1);
     }
 
     setWeekCount(array);
   };
 
-  (0, _react.useEffect)(() => {
+  (0, _react.useEffect)(function () {
     getEvents();
   }, [month]);
-  (0, _react.useEffect)(() => {
+  (0, _react.useEffect)(function () {
     if (loading) {
       setLoading(false);
     }
@@ -104328,7 +104433,7 @@ const BigCalendar = ({
   }, /*#__PURE__*/_react.default.createElement(_header.default, {
     month: month,
     small: small,
-    onChange: date => {
+    onChange: function onChange(date) {
       onChangeMonth(date);
       setMonth(date);
     }
@@ -104341,17 +104446,22 @@ const BigCalendar = ({
       width: '100%',
       flexWrap: "wrap"
     }
-  }, weekCount.map((item, index) => {
+  }, weekCount.map(function (item, index) {
     return /*#__PURE__*/_react.default.createElement(_week.default, {
       small: small,
       selectDay: new Date(selectDateChange).getDate(),
-      clickDay: a => {
+      clickDay: function clickDay(a) {
         setSelectDateChange(a);
-        clickDay(a);
+
+        _clickDay(a);
       },
-      onEventMore: (a, b) => onEventMore(a, b),
+      onEventMore: function onEventMore(a, b) {
+        return _onEventMore(a, b);
+      },
       weekCount: weekCount.length,
-      clickEvent: a => onClickEvent(a),
+      clickEvent: function clickEvent(a) {
+        return onClickEvent(a);
+      },
       month: month,
       rmDays: rmDays,
       item: item,
@@ -104368,11 +104478,11 @@ const BigCalendar = ({
 BigCalendar.defaultProps = {
   eventsData: [],
   small: false,
-  onChangeMonth: () => {},
+  onChangeMonth: function onChangeMonth() {},
   selectDate: new Date(),
-  clickDay: () => {},
-  onEventMore: () => {},
-  onClickEvent: () => {}
+  clickDay: function clickDay() {},
+  onEventMore: function onEventMore() {},
+  onClickEvent: function onClickEvent() {}
 };
 BigCalendar.propTypes = {
   eventsData: _propTypes.default.array,
@@ -104447,7 +104557,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59102" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59753" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

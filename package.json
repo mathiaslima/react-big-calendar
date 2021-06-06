@@ -1,10 +1,14 @@
 {
   "name": "@mathiaslima/react-big-calendar",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "files": [
     "build"
   ],
-  "main": "index.js",
+  "main": "build/index.js",
+  "author": {
+    "name": "Mathias Morais Lima",
+    "email": "mathias.morais7@gmail.com"
+  },
   "license": "MIT",
   "dependencies": {
     "@material-ui/core": "^4.11.4",
@@ -21,6 +25,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mathiaslima/react-big-calendar"
   },
   "browserslist": {
     "production": [

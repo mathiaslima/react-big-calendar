@@ -1,7 +1,11 @@
 {
   "name": "react-big-calendar",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "files": [
+    "build"
+  ],
+  "main": "index.js",
+  "license": "MIT",
   "dependencies": {
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
@@ -16,10 +20,8 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "parcel src/index.html",
+    "build": "parcel build src/bigCalendar/index.js -d build --out-file index.js"
   },
   "eslintConfig": {
     "extends": [

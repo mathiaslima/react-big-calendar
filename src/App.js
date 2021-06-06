@@ -5,12 +5,7 @@ import BigCalendar from './bigCalendar';
 function App() {
   return (
     <div className="App">
-      <BigCalendar
-
-      />
-      <BigCalendar
-        small={true}
-      />
+      <BigCalendar />
     </div>
   );
 }

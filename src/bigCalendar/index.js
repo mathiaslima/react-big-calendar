@@ -117,11 +117,7 @@ const BigCalendar = ({ eventsData, small, onChangeMonth, selectDate, clickDay, o
 
     useEffect(() => {
         if (loading) {
-            setTimeout(() => {
-                setLoading(false)
-            }, 10000);
-
-
+            setLoading(false)
         }
     }, [events])
 

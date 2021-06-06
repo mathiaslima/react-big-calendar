@@ -1,6 +1,6 @@
 {
-  "name": "@mathiaslima/react-big-calendar",
-  "version": "1.0.0",
+  "name": "@mathiaslima/react-big-calendar-Booking",
+  "version": "1.0.1",
   "files": [
     "build"
   ],
@@ -19,26 +19,11 @@
     "react-scripts": "4.0.3",
     "web-vitals": "^1.0.1"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "start": "parcel src/index.html",
     "build": "parcel build src/bigCalendar/index.js -d build --out-file index.js"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
   }
 }

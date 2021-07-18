@@ -1,6 +1,6 @@
 {
   "name": "@mathiaslima/react-big-calendar",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A simple react component that accepts a list of password requirements and updates each as they are fulfilled",
   "main": "dist/index.js",
   "module": "dist/index.es.js",

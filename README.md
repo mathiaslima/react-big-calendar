@@ -1,4 +1,8 @@
-![image]((https://github.com/mathiaslima/react-big-calendar/blob/master/image.png?raw=true))
+![image](https://github.com/mathiaslima/react-big-calendar/blob/master/example.png)
+
+> Responsive
+
+![image](https://github.com/mathiaslima/react-big-calendar/blob/master/responsive.png)
 
 # React Big Calendar
 

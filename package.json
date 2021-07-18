@@ -1,6 +1,6 @@
 {
   "name": "@mathiaslima/react-big-calendar",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A simple react component that accepts a list of password requirements and updates each as they are fulfilled",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
@@ -8,6 +8,14 @@
     "name": "Mathias Morais Lima",
     "email": "mathias.morais7@gmail.com"
   },
+  "keywords": [
+    "scheduler",
+    "react-component",
+    "react",
+    "calendar",
+    "events",
+    "full calendar"
+  ],
   "license": "MIT",
   "publishConfig": {
     "access": "public"

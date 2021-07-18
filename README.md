@@ -1,4 +1,4 @@
-![alt text]((https://github.com/mathiaslima/react-big-calendar/blob/master/image.png?raw=true))
+![alt text]((https://github.com/mathiaslima/react-big-calendar/blob/master/example.png?raw=true))
 
 # React Big Calendar
 

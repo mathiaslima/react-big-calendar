@@ -4,7 +4,7 @@
 
 > A simple and lightweight react component of a big agenda
 
-[![NPM](https://img.shields.io/npm/v/rc-big-calendar.svg)](https://www.npmjs.com/package/@mathiaslima/react-big-calendar) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/@mathiaslima/react-big-calendar.svg)](https://www.npmjs.com/package/@mathiaslima/react-big-calendar) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE.md)
 [![npm](https://img.shields.io/npm/dt/@mathiaslima/react-big-calendar.svg)](https://www.npmjs.com/package/@mathiaslima/react-big-calendar)
 [![npm](https://img.shields.io/npm/dw/@mathiaslima/react-big-calendar.svg)](https://www.npmjs.com/package/@mathiaslima/react-big-calendar)

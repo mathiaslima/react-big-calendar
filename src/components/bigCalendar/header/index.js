@@ -35,41 +35,16 @@ const Header = (props) => {
     return (
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
             <IconButton onClick={() => changeMonth('left')} aria-label="delete" size="small">
-                <ChevronLeftIcon />
+                {props.leftIcon ? props.leftIcon : <ChevronLeftIcon />}
             </IconButton>
             <div>
                 <p style={{ textTransform: 'capitalize', }}>{getTime(new Date(props.month))}</p>
             </div>
             <IconButton onClick={() => changeMonth('right')} aria-label="delete" size="small">
-                <ChevronRightIcon />
+                {props.rightIcon ? props.rightIcon : <ChevronRightIcon />}
             </IconButton>
-
-            {/* <div style={styles.icon}>
-                <ArrowBackIcon style={{ fontSize: 16, color: '#fff', }} />
-            </div>
-            <p style={{ textTransform: 'capitalize', width: 150, textAlign: 'center' }}>
-                
-            </p>
-            <div  style={styles.icon}>
-                <ArrowForwardIcon style={{ fontSize: 16, color: '#fff' }} />
-            </div> */}
         </div>
     )
 }
 
 export default Header;
-
-const styles = {
-    icon: {
-        marginLeft: 10,
-        marginRight: 10,
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#000',
-        borderRadius: '50%',
-        padding: 2,
-        cursor: 'pointer'
-    }
-};

@@ -1,91 +1,91 @@
 import React, { useEffect, useState } from 'react';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import { Tooltip } from '@material-ui/core';
+import { ThemeProvider, useTheme, createTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-const Day = ({ item, index, indexWeek, rmDays, clickEvent, clickDay, onEventMore, month, small, selectDay }) => {
+function useWidth() {
+    const theme = useTheme();
+    const keys = [...theme.breakpoints.keys].reverse();
+    return (
+        keys.reduce((output, key) => {
+            // eslint-disable-next-line react-hooks/rules-of-hooks
+            const matches = useMediaQuery(theme.breakpoints.up(key));
+            return !output && matches ? key : output;
+        }, null) || 'xs'
+    );
+}
 
+const Day = ({ DayEvent, index, indexWeek, rmDays, clickEvent, onClickDay, onEventMore, month, small, selectDay, onClickFooter }) => {
 
+    const width = useWidth();
     const [colors, setColors] = useState({
         border: "#fff",
         background: "#fff",
     })
 
-    const [offers, setOffers] = useState([])
+    const [eventsDay, setEventsDay] = useState([])
 
     useEffect(() => {
-        if (!!item.item) {
-            let status;
+        if (!!DayEvent.item) {
+            let status = {
+                border: "#fff",
+                background: "#fff",
+            };
+            if (DayEvent.item.eventsDay) {
+                status = {
+                    border: DayEvent.item.borderColor,
+                    background: DayEvent.item.backgroundColor,
+                };
+            } else {
+                status = {
+                    border: "#fff",
+                    background: "#fff",
+                };
+            }
 
-            setOffers(item.item.offers)
-            item.item.offers.map(item => {
-                if (!!item.jobstarted && !item.jobdone) {
-                    status = {
-                        border: '#72DEC9',
-                        background: '#D9FFF8',
-                    }
-                } else if (!!item.jobstarted && !!item.jobdone) {
-                    status = {
-                        border: '#000000',
-                        background: '#F0F0F0',
-                    }
-                } else {
-                    status = {
-                        border: '#B0F82D',
-                        background: '#EDFFCB',
-                    }
-                }
-            })
+            setEventsDay(DayEvent.item.eventsDay)
             setColors(status)
         }
 
 
     }, [])
 
-    const getStatus = (offer) => {
-        if (!!offer.jobstarted && !offer.jobdone) {
-            return 'Iniciado'
-        } else if (!!offer.jobstarted && !!offer.jobdone) {
-            return 'Finalizado';
-        } else {
-            return 'Agendado';
-        }
-    }
-
-    const dotColor = (status) => {
-        if (!!status.jobstarted && !status.jobdone) {
-            return '#72DEC9'
-        } else if (!!status.jobstarted && !!status.jobdone) {
-            return '#000000'
-        } else {
-            return '#B0F82D'
-        }
-    }
-
     const listRender = () => {
         let len = 0
         return (
             <>
                 {
-                    offers.map(item => {
-                        len = len + item.role.name.length;
+                    eventsDay.map(item => {
+                        return (
+                            <div
+                                onClick={() => {
+                                    clickEvent(item)
+                                }}
+                                style={{
+                                    display: "flex",
+                                    flexDirection: 'row',
+                                    justifyContent: 'flex-start',
+                                    alignItems: 'flex-start',
+                                }}>
+                                <div
+                                    style={{
+                                        height: 6,
+                                        width: 6,
+                                        borderRadius: "50%",
+                                        backgroundColor: item.dotColor,
+                                        marginTop: '5px',
+                                    }}
+                                />
+                                <span style={{
+                                    fontSize: '12px',
+                                    width: "100%",
+                                    overflow: 'hidden',
+                                    marginLeft: 10,
+                                    textOverflow: 'ellipsis'
+                                }}>{item.title}</span>
 
-                        if (len < 51)
-                            return (
-                                <div onClick={() => {
-                                    if (offers.length === 1)
-                                        clickEvent(item.pk)
-                                }} style={{ display: "flex", flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'flex-start', }}>
-                                    <div style={{ height: 6, width: 6, borderRadius: "50%", backgroundColor: dotColor(item), marginTop: '5px', }}></div>
-                                    <span style={{
-                                        fontSize: '12px',
-                                        width: "100%",
-                                        overflow: 'hidden',
-                                        marginLeft: 10,
-                                        textOverflow: 'ellipsis'
-                                    }}>{item.role.name}</span>
-
-                                </div>
-                            )
+                            </div>
+                        )
 
                     })
                 }
@@ -97,21 +97,17 @@ const Day = ({ item, index, indexWeek, rmDays, clickEvent, clickDay, onEventMore
         <>{small ?
             <div
                 onClick={() => {
-                    if (!item.noView) {
-                        if (!!item.item) {
-                            let item = new Date(month)
-                            item.setDate((((7) * (indexWeek) + index + 1) - rmDays))
-                            onEventMore(item, !!item.item)
-                        } else {
-                            let item = new Date(month)
-                            item.setDate((((7) * (indexWeek) + index + 1) - rmDays))
-                            // onEventMore(item, !!item.item)
-                            clickDay(item)
-                        }
+                    if (!DayEvent.noView) {
+                        let item = new Date(month)
+                        item.setDate((((7) * (indexWeek) + index + 1) - rmDays))
+                        onClickDay({
+                            date: item,
+                            events: DayEvent.item
+                        })
                     }
 
                 }}
-                style={!item.noView ? {
+                style={!DayEvent.noView ? {
                     height: 30,
                     width: '100%',
                     margin: '4px',
@@ -132,7 +128,7 @@ const Day = ({ item, index, indexWeek, rmDays, clickEvent, clickDay, onEventMore
                     margin: '4px 4px',
                 }}
             >
-                {selectDay === (((7) * (indexWeek) + index + 1) - rmDays) ?
+                {/* {selectDay === (((7) * (indexWeek) + index + 1) - rmDays) ?
 
                     <div style={{
                         height: "30px", width: "30px", backgroundColor: "#4A0D77", borderRadius: '15px', color: '#fff', display: 'flex',
@@ -142,37 +138,49 @@ const Day = ({ item, index, indexWeek, rmDays, clickEvent, clickDay, onEventMore
                         alignItems: 'center'
                     }}>
                         <p>
-                            {!item.noView && (((7) * (indexWeek) + index + 1) - rmDays)}
+                            {!DayEvent.noView && (((7) * (indexWeek) + index + 1) - rmDays)}
                         </p>
                         <div style={{ height: 6, width: 6, borderRadius: 3, }} />
                     </div>
-                    :
-                    <>
-                        <p>
-                            {!item.noView && (((7) * (indexWeek) + index + 1) - rmDays)}
-                        </p>
-                        <div style={{ height: 6, width: 6, borderRadius: 3, backgroundColor: colors.background.includes("#fff") ? colors.background : '#4A0D77', }} />
-                    </>
-                }
+                    : */}
+                <div style={!DayEvent.noView ? {
+                    height: "30px",
+                    width: "30px",
+                    backgroundColor: colors.border,
+                    borderRadius: '15px',
+                    color: colors.border.includes("#fff") ? "#000" : '#fff',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    boxShadow: '0px 2px 6px rgba(0, 0, 0, 0.1)',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                } : {
+                    height: 30,
+                    width: '100%',
+                    margin: '4px 4px',
+                }}>
+                    <p>
+                        {!DayEvent.noView && (((7) * (indexWeek) + index + 1) - rmDays)}
+                    </p>
+                    <div style={{ height: 6, width: 6, borderRadius: 3, backgroundColor: colors.background }} />
+                </div>
+                {/* } */}
             </div>
             :
 
             <div
                 onClick={() => {
-                    if (!item.noView) {
-                        if (!!item.item) {
-                            let item = new Date(month)
-                            item.setDate((((7) * (indexWeek) + index + 1) - rmDays))
-                            onEventMore(item)
-                        } else {
-                            let item = new Date(month)
-                            item.setDate((((7) * (indexWeek) + index + 1) - rmDays))
-                            clickDay(item)
-                        }
+                    if (!DayEvent.noView) {
+                        let item = new Date(month)
+                        item.setDate((((7) * (indexWeek) + index + 1) - rmDays))
+                        onClickDay({
+                            date: item,
+                            events: DayEvent.item
+                        })
                     }
 
                 }}
-                style={!item.noView ? {
+                style={!DayEvent.noView ? {
                     height: 120,
                     width: '100%',
                     margin: '8px 4px',
@@ -194,7 +202,7 @@ const Day = ({ item, index, indexWeek, rmDays, clickEvent, clickDay, onEventMore
             >
 
                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', fontSize: 12, padding: 8, paddingBottom: 0, height: 20 }}>
-                    {!item.noView && (((7) * (indexWeek) + index + 1) - rmDays)}
+                    {!DayEvent.noView && (((7) * (indexWeek) + index + 1) - rmDays)}
                 </div>
                 <div
                     style={{
@@ -206,31 +214,35 @@ const Day = ({ item, index, indexWeek, rmDays, clickEvent, clickDay, onEventMore
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
                     }}>
-                    {!!item.item && (
+                    {!!DayEvent.item && (
                         <>
                             {listRender()}
                         </>
                     )}
                 </div>
 
-                {(!item.noView && !!item.item) &&
-                    <div style={{ display: "flex", flexDirection: 'row', justifyContent: 'space-between', padding: 5, paddingTop: 0, height: 20, alignItems: 'center', position: 'relative', }}>
-                        <Tooltip title="Total de jobs" placement="top-center" arrow aria-label="add">
-                            <div>
-                                {/* <Icon icon={pin20Regular} /> */}
-                                <span
-                                    style={{
-                                        fontSize: '12px',
+                {(!DayEvent.noView && !!DayEvent.item && DayEvent.item.footerView) &&
+                    <div
+                        onClick={() => onClickFooter(DayEvent.item)}
+                        style={{ display: "flex", flexDirection: 'row', justifyContent: 'space-between', padding: 5, paddingTop: 0, height: 20, alignItems: 'center', position: 'relative', }}
+                    >
 
-                                        marginLeft: 5,
+                        <div>
+                            {/* <Icon icon={pin20Regular} /> */}
+                            <span
+                                style={{
+                                    fontSize: '12px',
 
-                                    }}
-                                >{item.item.title} {offers.length === 1 ? "Job" : "Jobs"}</span>
-                            </div>
-                        </Tooltip>
+                                    marginLeft: 5,
 
-                        <ChevronRightIcon style={{ fontSize: 18, }} />
-                    </div>}
+                                }}
+                            >{DayEvent.item.footerTitle}</span>
+                        </div>
+
+
+                        {DayEvent.item.footerIcon ? DayEvent.item.footerIcon : <ChevronRightIcon style={{ fontSize: 18, }} />}
+                    </div>
+                }
             </div >}
         </>
     )

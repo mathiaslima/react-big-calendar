@@ -4,8 +4,97 @@ import Week from './week';
 import WeekNames from './weekNames';
 import PropTypes from "prop-types";
 import Skeleton from '@material-ui/lab/Skeleton';
+import { ThemeProvider, useTheme, createTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-export const BigCalendar = ({ eventsData, small, onChangeMonth, selectDate, clickDay, onEventMore, onClickEvent }) => {
+function useWidth() {
+    const theme = useTheme();
+    const keys = [...theme.breakpoints.keys].reverse();
+    return (
+        keys.reduce((output, key) => {
+            // eslint-disable-next-line react-hooks/rules-of-hooks
+            const matches = useMediaQuery(theme.breakpoints.up(key));
+            return !output && matches ? key : output;
+        }, null) || 'xs'
+    );
+}
+
+export const BigCalendar = (
+    {
+        eventsMonth = [
+            {
+                date: "2021-07-18T20:48:54.270Z",
+                backgroundColor: "#e8f4f8",
+                borderColor: "#399bbc",
+                footerView: true,
+                footerTitle: "Ver mais",
+                eventsDay: [
+                    {
+                        title: "Jobs hoje",
+                        dotColor: "#000"
+                    },
+                    {
+                        title: "Jobs hoje",
+                        dotColor: "#000"
+                    }
+                ]
+            },
+            {
+                date: "2021-07-18T20:48:54.270Z",
+                backgroundColor: "#e8f4f8",
+                borderColor: "#399bbc",
+                footerView: true,
+                footerTitle: "Ver mais",
+                eventsDay: [
+                    {
+                        title: "Jobs hoje",
+                        dotColor: "#000"
+                    },
+                    {
+                        title: "Jobs hoje",
+                        dotColor: "#000"
+                    }
+                ]
+            }
+        ],
+        small = false,
+        onChangeMonth = () => new Date,
+        selectDate,
+        onClickDay = () => new Date,
+        onEventMore,
+        onClickEvent = () => {
+            return (
+                {
+                    title: "Jobs hoje",
+                    dotColor: "#000"
+                }
+            )
+        },
+        onClickFooter = () => {
+            return (
+                {
+                    date: "2021-07-18T20:48:54.270Z",
+                    backgroundColor: "#e8f4f8",
+                    borderColor: "#399bbc",
+                    footerView: true,
+                    footerTitle: "Ver mais",
+                    eventsDay: [
+                        {
+                            title: "Jobs hoje",
+                            dotColor: "#000"
+                        },
+                        {
+                            title: "Jobs hoje",
+                            dotColor: "#000"
+                        }
+                    ]
+                }
+            )
+        },
+        rightIcon,
+        leftIcon,
+    }
+) => {
 
     const [events, setEvents] = useState({
         '1': {
@@ -24,6 +113,7 @@ export const BigCalendar = ({ eventsData, small, onChangeMonth, selectDate, clic
 
         }
     })
+    const width = useWidth();
     const [month, setMonth] = useState(new Date());
     const [loading, setLoading] = useState(false);
     const [selectDateChange, setSelectDateChange] = useState(selectDate)
@@ -93,14 +183,20 @@ export const BigCalendar = ({ eventsData, small, onChangeMonth, selectDate, clic
 
         getCountWeek(date.getWeekOfMonth(true));
 
-        eventsData.map(item => {
-            temp = {
-                ...temp, [(new Date(item.startDate)).getWeekOfMonth(true)]: {
-                    events: [...temp[(new Date(item.startDate)).getWeekOfMonth(true)].events, item]
+        eventsMonth.map(item => {
+            if (item.date.getMonth() === month.getMonth())
+                temp = {
+                    ...temp, [(new Date(item.date)).getWeekOfMonth(true)]: {
+                        events: [...temp[(new Date(item.date)).getWeekOfMonth(true)].events, item]
+                    }
                 }
-            }
         })
         setEvents(temp)
+        setTimeout(() => {
+            setLoading(false)
+        }, 1);
+
+
     }
 
     const getCountWeek = (count) => {
@@ -115,11 +211,11 @@ export const BigCalendar = ({ eventsData, small, onChangeMonth, selectDate, clic
         getEvents()
     }, [month])
 
-    useEffect(() => {
-        if (loading) {
-            setLoading(false)
-        }
-    }, [events])
+    // useEffect(() => {
+    //     if (loading) {
+    //         setLoading(false)
+    //     }
+    // }, [events])
 
 
 
@@ -129,33 +225,41 @@ export const BigCalendar = ({ eventsData, small, onChangeMonth, selectDate, clic
             flexDirection: "column",
             height: "100%"
         }}>
-            <Header month={month} small={small} onChange={(date) => {
-                onChangeMonth(date)
-                setMonth(date)
-            }} />
-            <WeekNames small={small} />
-            {!loading ? <div style={{ display: 'flex', flexDirection: "column", width: '100%', flexWrap: "wrap" }}>
-                {weekCount.map((item, index) => {
-                    return (
-                        <Week
-                            small={small}
-                            selectDay={new Date(selectDateChange).getDate()}
-                            clickDay={(a) => {
-                                setSelectDateChange(a)
-                                clickDay(a)
-                            }}
-                            onEventMore={(a, b) => onEventMore(a, b)}
-                            weekCount={weekCount.length}
-                            clickEvent={(a) => onClickEvent(a)}
-                            month={month}
-                            rmDays={rmDays}
-                            item={item}
-                            data={events[item]}
-                            index={index}
-                        />
-                    )
-                })}
-            </div>
+            <Header
+                rightIcon={rightIcon}
+                leftIcon={leftIcon}
+                month={month}
+                small={small || width === "sm" || width === "xs"}
+                onChange={(date) => {
+                    onChangeMonth(date)
+                    setMonth(date)
+                }}
+            />
+            <WeekNames small={small || width === "sm" || width === "xs"} />
+            {!loading ?
+                <div style={{ display: 'flex', flexDirection: "column", width: '100%', flexWrap: "wrap" }}>
+                    {weekCount.map((item, index) => {
+                        return (
+                            <Week
+                                small={small || width === "sm" || width === "xs"}
+                                selectDay={new Date(selectDateChange).getDate()}
+                                onClickDay={(a) => {
+                                    setSelectDateChange(a)
+                                    onClickDay(a)
+                                }}
+                                onEventMore={(a, b) => onEventMore(a, b)}
+                                weekCount={weekCount.length}
+                                clickEvent={(a) => onClickEvent(a)}
+                                month={month}
+                                rmDays={rmDays}
+                                item={item}
+                                data={events[item]}
+                                index={index}
+                                onClickFooter={onClickFooter}
+                            />
+                        )
+                    })}
+                </div>
                 :
                 <Skeleton variant="rect" width={"100%"} height={"100%"} />
             }
@@ -165,23 +269,47 @@ export const BigCalendar = ({ eventsData, small, onChangeMonth, selectDate, clic
 }
 
 BigCalendar.defaultProps = {
-    eventsData: [],
+    eventsMonth: [],
     small: false,
     onChangeMonth: () => { },
     selectDate: new Date(),
-    clickDay: () => { },
+    onClickDay: () => { },
     onEventMore: () => { },
     onClickEvent: () => { },
+    onClickFooter: () => {
+        return (
+            {
+                date: "2021-07-18T20:48:54.270Z",
+                backgroundColor: "#e8f4f8",
+                borderColor: "#399bbc",
+                footerView: true,
+                footerTitle: "Ver mais",
+                eventsDay: [
+                    {
+                        title: "Jobs hoje",
+                        dotColor: "#000"
+                    },
+                    {
+                        title: "Jobs hoje",
+                        dotColor: "#000"
+                    }
+                ]
+            }
+        )
+    },
 };
 
 BigCalendar.propTypes = {
-    eventsData: PropTypes.array,
+    eventsMonth: PropTypes.array,
     small: PropTypes.bool,
     onChangeMonth: PropTypes.func,
     selectDate: PropTypes.instanceOf(Date),
-    clickDay: PropTypes.func,
+    onClickDay: PropTypes.func,
     onEventMore: PropTypes.func,
     onClickEvent: PropTypes.func,
+    onClickFooter: PropTypes.func,
+    rightIcon: PropTypes.element,
+    leftIcon: PropTypes.element,
 };
 
 // export default BigCalendar;

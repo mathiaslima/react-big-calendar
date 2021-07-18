@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Day from '../day';
 
-const Week = ({ index, data, month, rmDays, weekCount, small, selectDay, onEventMore, clickDay, clickEvent }) => {
+const Week = ({ index, data, month, rmDays, weekCount, small, selectDay, onEventMore, onClickDay, clickEvent, onClickFooter }) => {
 
     const [weekindex, setWeekIndex] = useState(index);
     const [events, setEvents] = useState([]);
@@ -19,6 +19,7 @@ const Week = ({ index, data, month, rmDays, weekCount, small, selectDay, onEvent
 
             let date = new Date(month);
             date.setDate(1);
+            // if (date.getMonth() === month.getMonth())
             if (weekindex === 0) {
                 [1, 2, 3, 4, 5, 6, 7].map((item, index) => {
                     if (date.getDay() > (index)) {
@@ -31,6 +32,7 @@ const Week = ({ index, data, month, rmDays, weekCount, small, selectDay, onEvent
             }
 
             date.setDate(diasNoMes(date.getMonth() + 1, (date.getFullYear())))
+            // if (date.getMonth() === month.getMonth())
             if (weekindex === (weekCount - 1)) {
                 [1, 2, 3, 4, 5, 6, 7].map((item, index) => {
                     if (date.getDay() < (index))
@@ -42,12 +44,8 @@ const Week = ({ index, data, month, rmDays, weekCount, small, selectDay, onEvent
                 })
             }
 
-
-
             data.events.map((item, index) => {
-
-                array[new Date(item.startDate).getDay()] = { item }
-
+                array[new Date(item.date).getDay()] = { item }
             })
             setEvents(array)
         }
@@ -60,16 +58,17 @@ const Week = ({ index, data, month, rmDays, weekCount, small, selectDay, onEvent
 
                 return (
                     <Day
-                        item={item}
+                        DayEvent={item}
                         small={small}
                         month={month}
                         selectDay={selectDay}
                         onEventMore={(a, b) => onEventMore(a, b)}
-                        clickDay={(a) => clickDay(a)}
+                        onClickDay={(a) => onClickDay(a)}
                         clickEvent={(a) => clickEvent(a)}
                         rmDays={rmDays}
                         indexWeek={weekindex}
                         index={index}
+                        onClickFooter={onClickFooter}
                     />
                 )
             })

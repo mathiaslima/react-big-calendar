@@ -3,7 +3,6 @@ import {
     format,
 } from 'date-fns';
 import { IconButton } from '@material-ui/core';
-import pt from 'date-fns/locale/pt-BR';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
@@ -13,7 +12,7 @@ const Header = (props) => {
 
         const formattedDate = format(
             date,
-            "MMMM '-' yyyy", { locale: pt }
+            "MMMM '-' yyyy", { locale: props.locale }
         );
         return formattedDate;
 

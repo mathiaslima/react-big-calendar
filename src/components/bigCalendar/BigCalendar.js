@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import Skeleton from '@material-ui/lab/Skeleton';
 import { ThemeProvider, useTheme, createTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import en from 'date-fns/locale/en-US';
 
 function useWidth() {
     const theme = useTheme();
@@ -93,6 +94,7 @@ export const BigCalendar = (
         },
         rightIcon,
         leftIcon,
+        locale = en
     }
 ) => {
 
@@ -229,13 +231,14 @@ export const BigCalendar = (
                 rightIcon={rightIcon}
                 leftIcon={leftIcon}
                 month={month}
+                locale={locale}
                 small={small || width === "sm" || width === "xs"}
                 onChange={(date) => {
                     onChangeMonth(date)
                     setMonth(date)
                 }}
             />
-            <WeekNames small={small || width === "sm" || width === "xs"} />
+            <WeekNames locale={locale} small={small || width === "sm" || width === "xs"} />
             {!loading ?
                 <div style={{ display: 'flex', flexDirection: "column", width: '100%', flexWrap: "wrap" }}>
                     {weekCount.map((item, index) => {

@@ -1,4 +1,4 @@
-![image](https://github.com/mathiaslima/react-big-calendar/blob/master/example.png)
+![image](https://github.com/mathiaslima/react-big-calendar/blob/master/example-1.png)
 
 > Responsive
 

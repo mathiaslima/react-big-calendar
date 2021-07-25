@@ -1,8 +1,8 @@
-![image](https://github.com/mathiaslima/react-big-calendar/blob/master/example.png)
+![image](https://github.com/mathiaslima/react-big-calendar/blob/master/example-1.png)
 
 > Responsive
 
-![image](https://github.com/mathiaslima/react-big-calendar/blob/master/responsive.png)
+![image](https://github.com/mathiaslima/react-big-calendar/blob/master/responsive-1.png)
 
 # React Big Calendar
 
@@ -37,6 +37,46 @@ import { BigCalendar } from '@mathiaslima/react-big-calendar';
 
 const MyView = (props) => (
    <BigCalendar 
+     eventsMonth={
+        [
+          {
+            date: new Date(),
+            backgroundColor: "#f0fded",
+            borderColor: "green",
+            footerView: true,
+            // footerIcon: "<>",
+            footerTitle: `Ver mais`,
+            eventsDay: [
+              {
+                title: "Ajudante de cozinha",
+                dotColor: "#000",
+              },
+              {
+                title: "Cozinheiro",
+                dotColor: "#000",
+              },
+
+            ]
+          },
+        ]
+   />
+)
+```
+
+## LOCALE
+
+> Default is en-US
+
+![image](https://github.com/mathiaslima/react-big-calendar/blob/master/locale.png)
+
+```jsx
+import React from 'react'
+import { BigCalendar } from '@mathiaslima/react-big-calendar';
+import en from 'date-fns/locale/en-US';
+
+const MyView = (props) => (
+   <BigCalendar 
+     locale={en}
      eventsMonth={
         [
           {

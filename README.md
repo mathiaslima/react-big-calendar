@@ -2,7 +2,7 @@
 
 > Responsive
 
-![image](https://github.com/mathiaslima/react-big-calendar/blob/master/responsive.png)
+![image](https://github.com/mathiaslima/react-big-calendar/blob/master/responsive-1.png)
 
 # React Big Calendar
 
